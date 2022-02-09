@@ -24,9 +24,8 @@
 @media screen and (max-width: 600px) {
 
     div#container div {
-        width: 100vw;
+        width: 95vw;
         margin: 5px auto;
-        padding: 0 5px;
     }
 }
 
