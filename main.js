@@ -13,15 +13,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const output = document.getElementById("output");
 
     remark.value = "e5sub";
-    // validate input
-    remark.addEventListener("keyup", function (e) {
-        // null or whitespaces
-        if (this.value.replace(/^ +| +$/g, '') === '') {
-            this.classList.add("invalid");
-        } else {
-            this.classList.remove("invalid");
-        }
-    })
+
+    function getListener() {
+        return function (e) {
+            // validate input
+            // null or whitespaces
+            if (this.value.replace(/^ +| +$/g, '') === '') {
+                this.classList.add("invalid");
+            } else {
+                this.classList.remove("invalid");
+            }
+
+            // data binding
+            output.innerText = "http://localhost/e5sub" + location.search + " " + remark.value;
+        };
+    }
+
+    remark.addEventListener("keyup", getListener())
+    remark.addEventListener("keydown", getListener())
+    remark.addEventListener("change", getListener())
     output.innerText = "http://localhost/e5sub" + location.search + " " + remark.value;
     const a = new ClipboardJS('.copy-btn');
 
@@ -45,8 +55,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500)
     }, 500))
 
-    // data binding
-    remark.onkeyup = function (ev) {
-        output.innerText = "http://localhost/e5sub" + location.search + " " + remark.value;
-    }
 })
