@@ -16,14 +16,18 @@ document.addEventListener("DOMContentLoaded", function () {
     remark.value = "e5sub";
 
     output.innerText = "http://localhost/e5sub" + location.search + " " + remark.value;
-    var a = new ClipboardJS('.copy-btn', {
-        text: function (trigger) {
-            return output.value;
-        }
-    });
+    var a = new ClipboardJS('.copy-btn');
+
     var BtnCopy = document.getElementsByClassName('copy-btn')[0];
     var IconCopy = document.getElementsByClassName('copy-icon')[0],
         IconCheck = document.getElementsByClassName('check-icon')[0];
+    a.on("success", function (e) {
+        console.info(e);
+        e.clearSelection();
+    })
+    a.on("error", function (e) {
+        console.error(e);
+    })
     BtnCopy.addEventListener("click", debounce(function () {
         IconCopy.classList.add("hidden")
         IconCheck.classList.remove('hidden')
