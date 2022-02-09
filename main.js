@@ -1,5 +1,5 @@
 function debounce(fn, wait) {
-    var timer = null;
+    let timer = null;
     return function () {
         if (timer !== null) {
             clearTimeout(timer);
@@ -9,17 +9,23 @@ function debounce(fn, wait) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    var remark = document.getElementById("remark");
-    var output = document.getElementById("output");
+    const remark = document.getElementById("remark");
+    const output = document.getElementById("output");
 
-    // default
-    remark.value = "e5sub";
-
+    // validate input
+    remark.addEventListener("keyup", function (e) {
+        // null or whitespaces
+        if (this.value.replace(/^ +| +$/g, '') === '') {
+            this.classList.add("invalid");
+        } else {
+            this.classList.remove("invalid");
+        }
+    })
     output.innerText = "http://localhost/e5sub" + location.search + " " + remark.value;
-    var a = new ClipboardJS('.copy-btn');
+    const a = new ClipboardJS('.copy-btn');
 
-    var BtnCopy = document.getElementsByClassName('copy-btn')[0];
-    var IconCopy = document.getElementsByClassName('copy-icon')[0],
+    const BtnCopy = document.getElementsByClassName('copy-btn')[0];
+    const IconCopy = document.getElementsByClassName('copy-icon')[0],
         IconCheck = document.getElementsByClassName('check-icon')[0];
     a.on("success", function (e) {
         console.info(e);
@@ -37,6 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }, 500)
     }, 500))
+
+    // data binding
     remark.onkeyup = function (ev) {
         output.innerText = "http://localhost/e5sub" + location.search + " " + remark.value;
     }
