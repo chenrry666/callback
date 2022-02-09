@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const remark = document.getElementById("remark");
     const output = document.getElementById("output");
 
+    remark.value = "e5sub";
     // validate input
     remark.addEventListener("keyup", function (e) {
         // null or whitespaces
